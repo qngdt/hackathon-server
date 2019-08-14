@@ -26,7 +26,7 @@ all_image = []
 all_poses = dict()
 
 e = TfPoseEstimator(get_graph_path('cmu'), target_size=(432, 368))
-move = '04'
+move = '05'
 
 @sio.on('connect')
 def connect(sid, environ):

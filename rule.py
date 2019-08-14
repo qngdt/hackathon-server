@@ -51,6 +51,7 @@ def check(all_poses,new_pose,dongtac):
         pass
         pass
     if dongtac=='05':
+        return check_05(all_poses,new_pose)
         pass
 
 def check_04(all_poses,pose):
@@ -65,7 +66,7 @@ def check_04(all_poses,pose):
         ground_arm = [arm[0] , arm[1]+1]
         cos_arm = compute_cos_angle(pose['RShoulder'], arm, ground_arm)
 
-        if pose['MidHip'][1] < pose['RShoulder'][1] and cos_hip > 0.8 and cos_hip < 0.91 and cos_arm < -0.7 and arm[0] > pose['MidHip'][0]-0.05:
+        if pose['MidHip'][1] < pose['RShoulder'][1] and cos_hip > 0.75 and cos_hip < 0.91 and cos_arm < -0.75 and arm[0] > pose['MidHip'][0]-0.05:
             '''ERROR'''
             return {'has_error':True,'finish':False, 'where': 'back'}
         elif pose['MidHip'][1] < pose['RShoulder'][1] and cos_hip > 0.91 and cos_arm < -0.7 and arm[0] > pose['MidHip'][0]-0.05:
@@ -74,6 +75,18 @@ def check_04(all_poses,pose):
     '''CONTINUE'''
 
     return {'has_error':False,'finish':False, 'where': None}
+
+def check_05(all_poses,pose):
+    if ("RHip" in pose or "LHip" in pose) and ("RKnee" in pose or "LKnee" in pose) and ("RAnkle" in pose or "LAnkle" in pose):
+        hip = pose['RHip'] if 'RHip' in pose else pose['LHip']
+        knee = pose['RHip'] if 'RKnee' in pose else pose['LKNee']
+        ankle = pose['RAnkle'] if 'RAnkle' in pose else pose['LAnkle']
+        cos = compute_cos_angle(hip, knee, ankle)
+        if cos > 0.7 or cos < -0.7:
+            return {'has_error':True,'finish':False, 'where': 'knee'}
+        else:
+            return {'has_error':False,'finish':True, 'where': None}
+        return {'has_error':False,'finish':False, 'where': None}
 
 if __name__ == '__main__':
     true_form = json_to_dict('./data_json/04_con_co/true_06.json')
