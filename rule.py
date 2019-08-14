@@ -58,6 +58,9 @@ def check_04(all_poses,pose):
             '''CORRECT'''
             return {'has_error':False,'finish':True, 'where': None}
     '''CONTINUE'''
+    if pose:
+        return {'has_error':True,'finish':False, 'where': None}
+        
     return {'has_error':False,'finish':False, 'where': None}
 
 if __name__ == '__main__':
