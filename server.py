@@ -23,7 +23,7 @@ sio = socketio.Server()
 app = socketio.WSGIApp(sio)
 all_image = []
 
-all_poses = dict()
+all_poses = []
 
 e = TfPoseEstimator(get_graph_path('cmu'), target_size=(432, 368))
 move = '05'
@@ -77,6 +77,7 @@ def data(sid, data):
 
     pose = convert_pose(pose)
     print(pose.keys())
+    all_poses.append(pose)
     result = check(all_poses, pose, move)
     print('Realu: ', result)
     sio.emit('msg',json.dumps(result))
@@ -86,7 +87,7 @@ def data(sid, data):
     if result['has_error'] == True:
         print('False move')
     elif result['finish'] == True:
-        all_poses = dict()
+        all_poses = list()
         if move == '03':
             move = '04'
         elif move == '04':
