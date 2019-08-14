@@ -66,10 +66,13 @@ def check_04(all_poses,pose):
         cos_arm = compute_cos_angle(pose['LShoulder'], arm, ground_arm)
 
         print('Arm: ', cos_arm, 'Back: ', cos_hip, 'Dis: ', abs(arm[0]-hip[0]))
-        if hip[1] < pose['LShoulder'][1] and cos_hip > 0.75 and cos_hip < 0.91 and cos_arm < -0.75 and abs(arm[0]-hip[0]) < 0.05:
+        if hip[1] < pose['LShoulder'][1] and cos_hip <0.45 and cos_hip > 0:
             '''ERROR'''
-            return {'has_error':True,'finish':False, 'where': 'back'}
-        elif hip[1] < pose['LShoulder'][1] and cos_hip > 0.91 and cos_arm < -0.7 and abs(arm[0]-hip[0]) > 0.05:
+            return {'has_error':True,'finish':False, 'where': 'lung_cong_len'}
+        if hip[1] >= pose['LShoulder'][1] and cos_hip <0.45 and cos_hip > 0:
+            '''ERROR'''
+            return {'has_error':True,'finish':False, 'where': 'lung_cong_xuong'}
+        elif hip[1] < pose['LShoulder'][1] and cos_hip > 0.65:
             '''CORRECT'''
             return {'has_error':False,'finish':True, 'where': None}
     '''CONTINUE'''
