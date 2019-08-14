@@ -1,8 +1,13 @@
 import eventlet
 import socketio
+import base64
+import numpy as np
+import cv2 
 
 sio = socketio.Server()
 app = socketio.WSGIApp(sio)
+
+all_image = []
 
 @sio.on('connect')
 def connect(sid, environ):
@@ -15,6 +20,13 @@ def message(sid, data):
 @sio.on('data')
 def data(sid, data):
     print('Data: ', data)
+    imgdata = base64.b64decode(data)
+    img_np = np.fromstring(imgdata, np.uint8)
+    src = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
+    print('1: ', src)
+    all_image.append(src)
+    print(len(all_image))
+
 
 @sio.on('disconnect')
 def disconnect(sid):
