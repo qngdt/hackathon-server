@@ -68,6 +68,7 @@ def data(sid, data):
             #print('Id: {} - {}-{} - conf:{}'.format(k, v.x, v.y, v.score))
             pose[k] = [v.y, 1-v.x, v.score]
 
+    pose = convert_pose(pose)
     print(pose)
     result = check(all_poses, pose, move)
     sio.emit('msg',json.dumps(result))
