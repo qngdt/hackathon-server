@@ -48,6 +48,7 @@ def data(sid, data):
     #     f.write(imgdata)
     # img = cv2.imread('some_image.jpg')
     # print('1: ', img)
+    print('Move: ', move)
     img_np = np.fromstring(imgdata, np.uint8)
     src = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
     cv2.imwrite("defore_rotate.png",src)
@@ -79,7 +80,7 @@ def data(sid, data):
     print(pose.keys())
     all_poses.append(pose)
     result = check(all_poses, pose, move)
-    print('Realu: ', result)
+    print('Result: ', result)
     sio.emit('msg',json.dumps(result))
     '''
         result: {'has_error':False,'finish':False, 'where': None}
