@@ -81,7 +81,7 @@ def sub_check_05(pose):
         cos = compute_cos_angle(hip, knee, ankle)
         if cos >0.7 and knee[1] < hip[1]:
             return False
-        elif knee[1] < hip[1]+0.08 and knee[1] > hip[1]-0.08:
+        elif cos > -0.15 and cos < 0.15 :
             return True
 
 def check_05(all_poses,pose):
@@ -94,7 +94,8 @@ def check_05(all_poses,pose):
         print("===============cos",cos,knee[1] ,'hip: ', hip[1],'knee' , knee[1])
         if cos >0.7 and knee[1] < hip[1]:
             return {'has_error':True,'finish':False, 'where': 'knee'}
-        elif knee[1] < hip[1]+0.08 and knee[1] > hip[1]-0.08 and len(all_poses)>3 and sub_check_05(all_poses[-1]) and sub_check_05(all_poses[-2]):
+        elif cos > -0.15 and cos < 0.15 and\
+         len(all_poses)>3 and sub_check_05(all_poses[-1]) and sub_check_05(all_poses[-2]):
 
             return {'has_error':False,'finish':True, 'where': None}
         return {'has_error':False,'finish':False, 'where': None}
