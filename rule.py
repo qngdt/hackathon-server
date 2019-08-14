@@ -42,9 +42,7 @@ def check_03(all_poses,new_pose):
     pass
 def check(all_poses,new_pose,dongtac):
     if dongtac=='03':
-        result=check_03(all_poses,new_pose)
-        if result['has_error'] is True or result['finish'] is True:
-            return result
+        return None
         pass
     if dongtac=='04':
         return check_04(all_poses,new_pose)
@@ -82,7 +80,7 @@ def check_05(all_poses,pose):
         knee = pose['RKnee'] if 'RKnee' in pose else pose['LKNee']
         ankle = pose['RAnkle'] if 'RAnkle' in pose else pose['LAnkle']
         cos = compute_cos_angle(hip, knee, ankle)
-        if cos > 0.7 or cos < -0.7:
+        if cos > 0.6 and knee[1] < hip[1] :
             return {'has_error':True,'finish':False, 'where': 'knee'}
         else:
             return {'has_error':False,'finish':True, 'where': None}

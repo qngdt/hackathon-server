@@ -92,7 +92,7 @@ def data(sid, data):
         elif move == '04':
             move = '05'
         elif move == '05':
-            move = '03'
+            move = '04'
     # print('2: ', src)
 
 
