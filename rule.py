@@ -93,13 +93,15 @@ def check_05(all_poses,pose):
         cos = compute_cos_angle(hip, knee, ankle)
         print("===============cos",cos,knee[1] ,'hip: ', hip[1],'knee' , knee[1])
         if cos >0.7 and knee[1] < hip[1]:
-            return {'has_error':True,'finish':False, 'where': 'knee'}
+            return {'has_error':True,'finish':False, 'where': 'mui_chan_sau'}
         elif cos > -0.25 and cos < 0.25 and\
          len(all_poses)>3 and sub_check_05(all_poses[-1]) and sub_check_05(all_poses[-2]):
 
             return {'has_error':False,'finish':True, 'where': None}
-        return {'has_error':False,'finish':False, 'where': None}
-
+        if cos > 0:
+            return {'has_error':False,'finish':False, 'where': 'ha_mong'}
+        elif cos < 0:
+            return {'has_error':False,'finish':False, 'where': 'nang_mong'}
 if __name__ == '__main__':
     true_form = json_to_dict('./data_json/04_con_co/true_06.json')
     false_form = json_to_dict('./data_json/04_con_co/false_12_lung_cong.json')
