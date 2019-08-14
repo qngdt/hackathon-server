@@ -58,7 +58,7 @@ def data(sid, data):
         image = src
     else:
         image = np.rot90(np.rot90(np.rot90(src)))
-    cv2.imwrite("debug_rotate.png",image)
+
     print("debug")
     start=time.time()
     humans = e.inference(image, resize_to_default=False, upsample_size=4.0)
@@ -77,6 +77,9 @@ def data(sid, data):
             pose[k] = [v.y, 1-v.x, v.score]
 
     pose = convert_pose(pose)
+    cv2.circle(image,(int(pose[''][0] * img.shape[0]), int(pose[part][1] * img.shape[0])),15, (255, 255, 0),-1)
+    cv2.circle(img, )
+    cv2.imwrite("debug_rotate.png",image)
     print(pose.keys())
     all_poses.append(pose)
     result = check(all_poses, pose, move)
