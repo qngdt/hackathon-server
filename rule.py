@@ -79,7 +79,7 @@ def check_04(all_poses,pose):
 def check_05(all_poses,pose):
     if ("RHip" in pose or "LHip" in pose) and ("RKnee" in pose or "LKnee" in pose) and ("RAnkle" in pose or "LAnkle" in pose):
         hip = pose['RHip'] if 'RHip' in pose else pose['LHip']
-        knee = pose['RHip'] if 'RKnee' in pose else pose['LKNee']
+        knee = pose['RKnee'] if 'RKnee' in pose else pose['LKNee']
         ankle = pose['RAnkle'] if 'RAnkle' in pose else pose['LAnkle']
         cos = compute_cos_angle(hip, knee, ankle)
         if cos > 0.7 or cos < -0.7:
