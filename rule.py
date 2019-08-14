@@ -53,21 +53,22 @@ def check(all_poses,new_pose,dongtac):
         pass
 
 def check_04(all_poses,pose):
-    if 'RShoulder' in pose and 'MidHip' in pose and ('RWrist' in pose or 'RElbow' in pose):
-        ground = [pose['MidHip'][0] , pose['MidHip'][1]+1]
-        cos_hip = compute_cos_angle(pose['RShoulder'], pose['MidHip'], ground)
+    if 'LShoulder' in pose and ('MidHip' in pose or 'LHip' in pose) and ('LWrist' in pose or 'LElbow' in pose):
+        hip = pose['MidHip'] if 'MidHip' in pose else pose['LHip']
+        ground = [hip[0] , hip[1]+1]
+        cos_hip = compute_cos_angle(pose['LShoulder'], pose['MidHip'], ground)
         try:
-            arm = pose['RWrist']
+            arm = pose['LWrist']
         except:
-            arm = pose['RElbow']
+            arm = pose['LElbow']
 
         ground_arm = [arm[0] , arm[1]+1]
-        cos_arm = compute_cos_angle(pose['RShoulder'], arm, ground_arm)
+        cos_arm = compute_cos_angle(pose['LShoulder'], arm, ground_arm)
 
-        if pose['MidHip'][1] < pose['RShoulder'][1] and cos_hip > 0.75 and cos_hip < 0.91 and cos_arm < -0.75 and arm[0] > pose['MidHip'][0]-0.05:
+        if hip[1] < pose['LShoulder'][1] and cos_hip > 0.75 and cos_hip < 0.91 and cos_arm < -0.75 and arm[0] > hip[0]-0.05:
             '''ERROR'''
             return {'has_error':True,'finish':False, 'where': 'back'}
-        elif pose['MidHip'][1] < pose['RShoulder'][1] and cos_hip > 0.91 and cos_arm < -0.7 and arm[0] > pose['MidHip'][0]-0.05:
+        elif hip[1] < pose['LShoulder'][1] and cos_hip > 0.91 and cos_arm < -0.7 and arm[0] > hip[0]-0.05:
             '''CORRECT'''
             return {'has_error':False,'finish':True, 'where': None}
     '''CONTINUE'''
