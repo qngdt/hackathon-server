@@ -99,9 +99,9 @@ def check_05(all_poses,pose):
 
             return {'has_error':False,'finish':True, 'where': None}
         if cos > 0:
-            return {'has_error':False,'finish':False, 'where': 'ha_mong'}
-        elif cos < 0:
             return {'has_error':False,'finish':False, 'where': 'nang_mong'}
+        elif cos < 0:
+            return {'has_error':False,'finish':False, 'where': 'ha_mong'}
 if __name__ == '__main__':
     true_form = json_to_dict('./data_json/04_con_co/true_06.json')
     false_form = json_to_dict('./data_json/04_con_co/false_12_lung_cong.json')
