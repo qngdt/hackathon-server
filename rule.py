@@ -1,10 +1,23 @@
 import json
 
+def compute_cos_angle(point1,point2,point3):
+    point1 = point1[0:2]
+    point2 = point2[0:2]
+    point3 = point3[0:2]
+
+    vector21 = [point1[0] - point2[0], point1[1] - point2[1]]
+    vector23 = [point3[0] - point2[0], point3[1] - point2[1]]
+    #print('Math: ', vector21[0] ** 2 + vector21[1] ** 2)
+    cos = (vector21[0] * vector23[0] + vector21[1] * vector23[1]) / (
+                math.sqrt(vector21[0] ** 2 + vector21[1] ** 2) * math.sqrt(vector23[0] ** 2 + vector23[1] ** 2))
+
+    return cos
+
 def convert_pose(pose):
     new_pose = dict()
     body = {0: 'Nose', 1:  "Neck", 2:  "RShoulder", 3:  "RElbow", 4:  "RWrist", 5:  "LShoulder", 6:  "LElbow",
-            7:  "LWrist", 8:  "MidHip", 9:  "RHip", 10: "RKnee", 11: "RAnkle", 12: "LHip", 13: "LKnee",
-            14: "LAnkle", 15: "REye", 16: "LEye", 17: "REar", 18: "LEar", 19: "LBigToe", 20: "LSmallToe",
+            7:  "LWrist", 8:  "MidHip", 9:  'RKnee', 10: "RAnkle", 11: "LHip", 12: 'LKnee', 13: "LAnkle",
+            14: "RHip", 15: "LEye", 16: "REye", 17: "LEar", 18: "REar", 19: "LBigToe", 20: "LSmallToe",
             21: "LHeel", 22: "RBigToe", 23: "RSmallToe", 24: "RHeel", 25: "Background"}
     for idx, value in pose.items():
         new_pose[body[int(idx)]] = value
