@@ -3,7 +3,8 @@ import socketio
 import base64
 import numpy as np
 import cv2
-
+import time
+import math
 import sys
 import time
 import os
@@ -49,12 +50,18 @@ def data(sid, data):
     # print('1: ', img)
     img_np = np.fromstring(imgdata, np.uint8)
     src = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
-
+    cv2.imwrite("defore_rotate.png",src)
+    # cv2.waitKey(200)
     if move == '05':
+        print("khong rotate")
         image = src
     else:
         image = np.rot90(np.rot90(np.rot90(src)))
+    cv2.imwrite("debug_rotate.png",image)
+    print("debug")
+    start=time.time()
     humans = e.inference(image, resize_to_default=False, upsample_size=4.0)
+    print('Time: ', time.time()-start)
     pose = dict()
     if humans and move == '05':
         #print('Save frame: ', count)
@@ -69,8 +76,9 @@ def data(sid, data):
             pose[k] = [v.y, 1-v.x, v.score]
 
     pose = convert_pose(pose)
-    print(pose)
+    print(pose.keys())
     result = check(all_poses, pose, move)
+    print('Realu: ', result)
     sio.emit('msg',json.dumps(result))
     '''
         result: {'has_error':False,'finish':False, 'where': None}
