@@ -25,7 +25,7 @@ all_image = []
 all_poses = dict()
 
 e = TfPoseEstimator(get_graph_path('cmu'), target_size=(432, 368))
-move = '03'
+move = '04'
 
 @sio.on('connect')
 def connect(sid, environ):
@@ -70,9 +70,9 @@ def data(sid, data):
     '''
         result: {'has_error':False,'finish':False, 'where': None}
     '''
-    if result['has_error'] == True
+    if result['has_error'] == True:
         print('False move')
-    elif result['finish'] == True
+    elif result['finish'] == True:
         all_poses = dict()
         if move == '03':
             move = '04'

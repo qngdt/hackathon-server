@@ -39,7 +39,7 @@ def check(all_poses,new_pose,dongtac):
     if dongtac=='05':
         pass
 
-def check_04(all_poses,new_pose):
+def check_04(all_poses,pose):
     if 'RShoulder' in pose and 'MidHip' in pose and ('RWrist' in pose or 'RElbow' in pose):
         ground = [pose['MidHip'][0] , pose['MidHip'][1]+1]
         cos_hip = compute_cos_angle(pose['RShoulder'], pose['MidHip'], ground)
