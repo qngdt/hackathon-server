@@ -50,8 +50,11 @@ def data(sid, data):
     img_np = np.fromstring(imgdata, np.uint8)
     src = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
 
-
-    humans = e.inference(src, resize_to_default=False, upsample_size=4.0)
+    if move == '05':
+        image = src
+    else:
+        image = np.rot90(np.rot90(np.rot90(src)))
+    humans = e.inference(image, resize_to_default=False, upsample_size=4.0)
     pose = dict()
     if humans and move == '05':
         #print('Save frame: ', count)
@@ -65,6 +68,7 @@ def data(sid, data):
             #print('Id: {} - {}-{} - conf:{}'.format(k, v.x, v.y, v.score))
             pose[k] = [v.y, 1-v.x, v.score]
 
+    print(pose)
     result = check(all_poses, pose, move)
     sio.emit('msg',json.dumps(result))
     '''
