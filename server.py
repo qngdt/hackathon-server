@@ -26,7 +26,7 @@ all_image = []
 all_poses = []
 
 e = TfPoseEstimator(get_graph_path('cmu'), target_size=(432, 368))
-move = '04'
+move = '05'
 
 @sio.on('connect')
 def connect(sid, environ):
@@ -48,13 +48,13 @@ def data(sid, data):
     #     f.write(imgdata)
     # img = cv2.imread('some_image.jpg')
     # print('1: ', img)
-    print('Move: ', move)
+    #print('Move: ', move)
     img_np = np.fromstring(imgdata, np.uint8)
     src = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
     cv2.imwrite("defore_rotate.png",src)
     # cv2.waitKey(200)
     if move == '05':
-        print("khong rotate")
+        #print("khong rotate")
         image = src
     else:
         image = np.rot90(np.rot90(np.rot90(src)))
@@ -62,7 +62,7 @@ def data(sid, data):
     # print("debug")
     start=time.time()
     humans = e.inference(image, resize_to_default=False, upsample_size=4.0)
-    print('Time: ', time.time()-start)
+    #print('Time to predict: ', time.time()-start)
     pose = dict()
     if humans and move == '05':
         #print('Save frame: ', count)
@@ -80,21 +80,19 @@ def data(sid, data):
     # cv2.circle(image,(int(pose[''][0] * img.shape[0]), int(pose[part][1] * img.shape[0])),15, (255, 255, 0),-1)
     # cv2.circle(img, )
     # cv2.imwrite("debug_rotate.png",image)
-    print(pose.keys())
+    #print(pose.keys())
     all_poses.append(pose)
     result = check(all_poses, pose, move)
-    print('Result: ', result)
+    #print('Result: ', result)
     sio.emit('msg',json.dumps(result))
     '''
         result: {'has_error':False,'finish':False, 'where': None}
     '''
     if result['has_error'] == True:
-        print('False move')
+        #print('False move')
     elif result['finish'] == True:
         all_poses = list()
-        if move == '03':
-            move = '04'
-        elif move == '04':
+        if move == '04':
             move = '05'
         elif move == '05':
             move = '04'

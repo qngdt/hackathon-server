@@ -65,15 +65,18 @@ def check_04(all_poses,pose):
         ground_arm = [arm[0] , arm[1]+1]
         cos_arm = compute_cos_angle(pose['LShoulder'], arm, ground_arm)
 
-        print('Arm: ', cos_arm, 'Back: ', cos_hip, 'Dis: ', abs(arm[0]-hip[0]))
+        #print('Arm: ', cos_arm, 'Back: ', cos_hip, 'Dis: ', abs(arm[0]-hip[0]))
         if hip[1] < pose['LShoulder'][1] and cos_hip <0.45 and cos_hip > 0:
             '''ERROR'''
+            print('LOI. Lung ban dang bi cong len. Hay chinh lai!!!!')
             return {'has_error':True,'finish':False, 'where': 'lung_cong_len'}
         if hip[1] >= pose['LShoulder'][1] and cos_hip <0.45 and cos_hip > 0:
             '''ERROR'''
+            print('LOI. Lung ban dang bi vong. Hay chinh lai!!!!')
             return {'has_error':True,'finish':False, 'where': 'lung_cong_xuong'}
         elif hip[1] < pose['LShoulder'][1] and cos_hip > 0.65:
             '''CORRECT'''
+            print('Hoan thanh bai tap 4!!!! CHUC MUNG')
             return {'has_error':False,'finish':True, 'where': None}
     '''CONTINUE'''
 
@@ -96,16 +99,19 @@ def check_05(all_poses,pose):
         ankle = pose['LAnkle']
 
         cos = compute_cos_angle(hip, knee, ankle)
-        print("===============cos",cos,knee[1] ,'hip: ', hip[1],'knee' , knee[1])
+        #print("===============cos",cos,knee[1] ,'hip: ', hip[1],'knee' , knee[1])
         if cos >0.7 and knee[1] < hip[1]:
+            print('LOI: Mui chan bi day ve sau!!! LAY LAI THANG BANG')
             return {'has_error':True,'finish':False, 'where': 'mui_chan_sau'}
         elif cos > -0.25 and cos < 0.25 and\
          len(all_poses)>3 and sub_check_05(all_poses[-1]) and sub_check_05(all_poses[-2]):
-
+            print('Hoan thanh bai tap 5!!!! CHUC MUNG')
             return {'has_error':False,'finish':True, 'where': None}
         if cos > 0:
+            print('Nang mong len nao!')
             return {'has_error':False,'finish':False, 'where': 'nang_mong'}
         elif cos < 0:
+            print('Ha mong xuong di!')
             return {'has_error':False,'finish':False, 'where': 'ha_mong'}
 if __name__ == '__main__':
     true_form = json_to_dict('./data_json/04_con_co/true_06.json')
