@@ -111,6 +111,9 @@ def check_05(all_poses,pose):
         elif cos <= 0:
             print('Ha mong xuong di!')
             return {'has_error':False,'finish':False, 'where': 'ha_mong'}
+        else:
+            return {'has_error':False,'finish':False, 'where': None}
+
 if __name__ == '__main__':
     true_form = json_to_dict('./data_json/04_con_co/true_06.json')
     false_form = json_to_dict('./data_json/04_con_co/false_12_lung_cong.json')
