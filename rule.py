@@ -38,12 +38,8 @@ def json_to_dict(json_path):
     # for fr, body in data.items():
     #     new_data[int(fr)] = convert_pose(body)
     return new_data
-def check_03(all_poses,new_pose):
-    pass
 def check(all_poses,new_pose,dongtac):
-    if dongtac=='03':
-        return None
-        pass
+
     if dongtac=='04':
         return check_04(all_poses,new_pose)
         pass

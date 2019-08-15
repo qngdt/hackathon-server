@@ -88,12 +88,15 @@ def data(sid, data):
     '''
         result: {'has_error':False,'finish':False, 'where': None}
     '''
-    if result['finish'] == True:
-        all_poses = list()
-        if move == '04':
-            move = '05'
-        elif move == '05':
-            move = '04'
+    try:
+        if result['finish'] == True:
+            all_poses = list()
+            if move == '04':
+                move = '05'
+            elif move == '05':
+                move = '04'
+    except:
+        
     # print('2: ', src)
 
 
