@@ -84,17 +84,20 @@ def data(sid, data):
     all_poses.append(pose)
     result = check(all_poses, pose, move)
     #print('Result: ', result)
-    sio.emit('msg',json.dumps(result))
+
     '''
         result: {'has_error':False,'finish':False, 'where': None}
     '''
+    if result == None:
+        result={'has_error':False,'finish':False, 'where': None}
+
     if result['finish'] == True:
         all_poses = list()
         if move == '04':
             move = '05'
         elif move == '05':
             move = '04'
-
+    sio.emit('msg',json.dumps(result))
     # print('2: ', src)
 
 
