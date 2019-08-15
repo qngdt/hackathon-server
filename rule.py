@@ -47,6 +47,8 @@ def check(all_poses,new_pose,dongtac):
     if dongtac=='05':
         return check_05(all_poses,new_pose)
         pass
+    else:
+        return{'finish':False}
 
 def check_04(all_poses,pose):
     if 'LShoulder' in pose and ('MidHip' in pose or 'LHip' in pose) and ('LWrist' in pose or 'LElbow' in pose):
