@@ -108,7 +108,7 @@ def check_05(all_poses,pose):
         if cos > 0:
             print('Nang mong len nao!')
             return {'has_error':False,'finish':False, 'where': 'nang_mong'}
-        elif cos < 0:
+        elif cos <= 0:
             print('Ha mong xuong di!')
             return {'has_error':False,'finish':False, 'where': 'ha_mong'}
 if __name__ == '__main__':
