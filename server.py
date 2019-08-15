@@ -88,9 +88,7 @@ def data(sid, data):
     '''
         result: {'has_error':False,'finish':False, 'where': None}
     '''
-    if result['has_error'] == True:
-        #print('False move')
-    elif result['finish'] == True:
+    if result['finish'] == True:
         all_poses = list()
         if move == '04':
             move = '05'
