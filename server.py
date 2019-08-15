@@ -81,8 +81,9 @@ def data(sid, data):
     # cv2.circle(img, )
     # cv2.imwrite("debug_rotate.png",image)
     #print(pose.keys())
-    all_poses.append(pose)
+    #all_poses.append(pose)
     result = check(all_poses, pose, move)
+    all_poses.append(pose)
     #print('Result: ', result)
 
     '''
