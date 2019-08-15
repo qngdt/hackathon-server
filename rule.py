@@ -77,6 +77,7 @@ def check_04(all_poses,pose):
             print('Hoan thanh bai tap 4!!!! CHUC MUNG')
             return {'has_error':False,'finish':True, 'where': None}
         else:
+            print('Gap nguoi lai nao')
             return {'has_error':False,'finish':False, 'where': None}
     '''CONTINUE'''
 
